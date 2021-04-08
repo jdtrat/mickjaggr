@@ -100,8 +100,7 @@ jags_data_prep <- function(.recipe, family) {
   # get the column name for the outcome variable
   outcome_var <- subset(summary(.recipe), role == "outcome")[["variable"]]
 
-  predictors <- jags_data_predictors(.training_data = data,
-                                     .outcome_var = outcome_var)
+  predictors <- jags_data_predictors(.recipe = .recipe)
 
   num_preds <- jags_data_num_preds(.pred_matrix = predictors)
 
