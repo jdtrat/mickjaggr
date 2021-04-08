@@ -1,0 +1,28 @@
+model {
+
+    # DEFINE PRIORS
+    ## define a prior for the precision,
+    ## which is the inverse of sigma squared
+    tau ~ dgamma(0.1, 0.1)
+
+    ## save sigma squared since that's what we want!
+    sigma.sq <- pow(tau, -1)
+
+    ## define all coefficients with a normal prior distribution
+    ## mean of 0, precision 0.001
+    for (j in 1:num_preds) {
+    beta[j] ~ dnorm(0, 0.001)
+    }
+
+    # PERFORM REGRESSION
+
+    ## for all observations, take the inner product of the
+    ## predictors and beta and set that as the mean of the
+    ## response variable.
+
+    for (i in 1:num_obs) {
+    # take inner product of predictors and coefficients
+    response[i] ~ dnorm(inprod(predictors[i,], beta[]), tau)
+    }
+
+}
