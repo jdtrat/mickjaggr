@@ -30,6 +30,7 @@ jags_model_lm <- function(jags_data, num_chains, ...) {
 jags_model_run <- function(.jags_model, num_iter, ...) {
   rjags::coda.samples(model = .jags_model,
                       variable.names = c("beta", "sigma.sq"),
-                      n.iter = num_iter)
+                      n.iter = num_iter,
+                      ...)
 }
 
