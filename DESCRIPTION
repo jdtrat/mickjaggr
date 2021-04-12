@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jdt@jdtrat.com",
            comment = c(ORCID = "0000-0002-1097-7603"))
-Description: This package provides an high level, easy-to-use interface for performing common 
+Description: This package provides a high level, easy-to-use interface for performing common 
   Bayesian Regressions with 'JAGS' with the 'recipes' package from the 'tidymodels' ecosystem.
 License: MIT + file LICENSE
 Encoding: UTF-8
