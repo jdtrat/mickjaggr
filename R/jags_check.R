@@ -29,4 +29,6 @@ jags_check_residuals <- function(.recipe, .model) {
 
   residual_df <- data.frame(.preds = y_hat,
                             .resid = response - y_hat)
+
+  return(residual_df)
 }
