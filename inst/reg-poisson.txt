@@ -1,0 +1,16 @@
+model {
+
+  for (i in 1:num_obs) {
+  response[i] ~ dpois(theta[i])
+
+  # log(theta[i]) <- exposure[i] + inprod(predictors[i,], beta[])
+
+  log(theta[i]) <- inprod(predictors[i,], beta[])
+
+  }
+
+  for(j in 1:num_preds) {
+  beta[j] ~ dnorm(0, 0.001)
+  }
+
+}

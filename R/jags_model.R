@@ -1,10 +1,10 @@
-#' Define JAGS model
+#' Define JAGS model for a Linear Regression
 #'
 #' @param jags_data The output of \code{\link{jags_data_prep}}
 #' @param num_chains How many chains for the MCMC.
 #' @param ... Additional arguments for \link[rjags2]{jags.model}
 #'
-#' @return
+#' @return JAGS model object
 #' @export
 #'
 #' @examples
@@ -16,6 +16,22 @@ jags_model_lm <- function(jags_data, num_chains, ...) {
                     ...)
 
 }
+
+#' Define JAGS model for a Poisson Regression
+#'
+#' @inheritParams jags_model_lm
+#'
+#' @return JAGS model object
+#' @export
+#'
+#' @examples
+jags_model_poisson <- function(jags_data, num_chains, ...) {
+  rjags::jags.model(file = system.file("reg-poisson.txt", package = "mickjaggr"),
+                    data = jags_data,
+                    n.chains = num_chains,
+                    ...)
+}
+
 
 #' Run JAGS models
 #'
