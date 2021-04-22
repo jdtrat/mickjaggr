@@ -21,16 +21,16 @@ jags_model_lm <- function(jags_data, num_chains, ...) {
 #'
 #' @param .jags_model The output of \code{\link{jags_model_define}}
 #' @param num_iter Number of iterations per chain.
+#' @param variable_names The variables to save from JAGS output.
 #' @param ... Additional arguments for \link[rjags2]{coda.samples}
 #'
 #' @return
 #' @export
 #'
 #' @examples
-jags_model_run <- function(.jags_model, num_iter, ...) {
+jags_model_run <- function(.jags_model, num_iter, variable_names, ...) {
   rjags::coda.samples(model = .jags_model,
-                      variable.names = c("beta", "sigma.sq"),
+                      variable.names = variable_names,
                       n.iter = num_iter,
                       ...)
 }
-
