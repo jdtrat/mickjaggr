@@ -58,7 +58,8 @@ jags_data_num_obs <- function(.recipe) {
 #'
 #' @examples
 jags_data_all <- function(.recipe) {
-  data <- .recipe$template
+  all_data <- .recipe$template
+  return(all_data)
 }
 
 #' Get the response vector
@@ -78,8 +79,6 @@ jags_data_response <- function(.recipe) {
   .recipe[["template"]][[outcome_var]]
 
 }
-
-
 
 #' Prep Matrices
 #'
