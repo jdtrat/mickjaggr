@@ -13,4 +13,7 @@ model {
   beta[j] ~ dnorm(0, 0.001)
   }
 
+
+  {{{pp_checks}}}
+
 }

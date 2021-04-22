@@ -4,12 +4,14 @@
 \alias{jags_model_run}
 \title{Run JAGS models}
 \usage{
-jags_model_run(.jags_model, num_iter, ...)
+jags_model_run(.jags_model, num_iter, variable_names, ...)
 }
 \arguments{
 \item{.jags_model}{The output of \code{\link{jags_model_define}}}
 
 \item{num_iter}{Number of iterations per chain.}
+
+\item{variable_names}{The variables to save from JAGS output.}
 
 \item{...}{Additional arguments for \link[rjags2]{coda.samples}}
 }
