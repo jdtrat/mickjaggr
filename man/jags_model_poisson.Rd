@@ -4,12 +4,14 @@
 \alias{jags_model_poisson}
 \title{Define JAGS model for a Poisson Regression}
 \usage{
-jags_model_poisson(jags_data, num_chains, ...)
+jags_model_poisson(jags_data, num_chains, checks = NULL, ...)
 }
 \arguments{
 \item{jags_data}{The output of \code{\link{jags_data_prep}}}
 
 \item{num_chains}{How many chains for the MCMC.}
+
+\item{checks}{Functions to perform posterior predictive checks with}
 
 \item{...}{Additional arguments for \link[rjags2]{jags.model}}
 }

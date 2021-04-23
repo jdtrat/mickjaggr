@@ -4,7 +4,7 @@
 \alias{jags_model_run}
 \title{Run JAGS models}
 \usage{
-jags_model_run(.jags_model, num_iter, variable_names, ...)
+jags_model_run(.jags_model, num_iter, variable_names, checks = NULL, ...)
 }
 \arguments{
 \item{.jags_model}{The output of \code{\link{jags_model_define}}}

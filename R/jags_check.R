@@ -32,3 +32,65 @@ jags_check_residuals <- function(.recipe, .model) {
 
   return(residual_df)
 }
+
+
+#' Calculate Bayesian P-Values for each check
+#'
+#' @keywords internal
+#' @param .list The output of \code{\link{jags_model_run}}
+#' @param .check A character vector of summary stats to perform
+#' @param .response_check The actual statistics from the response variable
+#'
+#' @return A numeric vector with the Bayesian P value for each summary statistic for each iteration.
+#'
+#' @examples
+check_pp_individual <- function(.list, .check, .response_check) {
+  vapply(.list[,paste0("pp.", .check)], function(x) mean(.response_check[.check] > x), FUN.VALUE = numeric(1))
+}
+
+
+
+#' Calculate Bayesian P-Values for each check
+#'
+#' @keywords internal
+#' @param .list The output of \code{\link{jags_model_run}}
+#' @param .check A character vector of summary stats to perform
+#' @param .response_check The actual statistics from the response variable
+#'
+#' @return A matrix with the Bayesian P value for each summary stat for every iteration
+#'
+#' @examples
+check_pp_internal <- function(.list, .check, .response_check) {
+  vapply(.check, FUN = check_pp_individual, FUN.VALUE = numeric(length(.list)), .list = .list, .response_check = .response_check)
+}
+
+#' Perform Posterior Predictive Checks
+#'
+#' @inheritParams jags_check_residuals
+#' @param checks A character string (or vector) of statistical summaries such as c("min", "max", "mean", "sd").
+#' @param all_iters A logical indicating whether the statistic summaries should be displayed per iteration. FALSE by default.
+#'
+#' @return Returns a Bayesian P Value for each posterior predictive check.
+#' @export
+#'
+#' @examples
+jags_check_pp <- function(.recipe, .model, checks, by_iter = FALSE) {
+
+  response <- jags_data_response(.recipe = .recipe)
+
+  response_checks <- vapply(X = checks, FUN = do.call, FUN.VALUE = numeric(1), list(response))
+
+  all_iters <- check_pp_internal(.list = .model,
+                                 .check = checks,
+                                 .response_check = response_checks)
+
+  dimnames(all_iters)[[1]] <- paste0("iter", 1:length(.model))
+
+  if (!by_iter) {
+  output <- apply(all_iters, 2, mean)
+  return(output)
+  } else if (by_iter) {
+    return(all_iters)
+  }
+}
+
