@@ -33,15 +33,8 @@ jags_model_poisson <- function(jags_data, num_chains, checks = NULL, ...) {
 
     internal_checks <- paste0("pp.", checks, " <- ", checks, "(response.new[])", collapse = " \n")
 
-    add_predictions <-
-    "
-    for (i in 1:num_obs) {
-
-    response.new[i] ~ dpois(theta[i])
-
-    }
-    "
-    data <- list(pp_checks = paste0(add_predictions, internal_checks))
+    data <- list(response_new = "response.new[i] ~ dpois(theta[i])",
+                 pp_checks = internal_checks)
   } else if (is.null(checks)) {
     data <- list(pp_checks = NULL)
   }
