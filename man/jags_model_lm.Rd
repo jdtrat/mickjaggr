@@ -2,20 +2,25 @@
 % Please edit documentation in R/jags_model.R
 \name{jags_model_lm}
 \alias{jags_model_lm}
-\title{Define JAGS model}
+\title{Define JAGS model for a Linear Regression}
 \usage{
-jags_model_lm(jags_data, num_chains, ...)
+jags_model_lm(jags_data, num_chains, checks = NULL, ...)
 }
 \arguments{
 \item{jags_data}{The output of \code{\link{jags_data_prep}}}
 
 \item{num_chains}{How many chains for the MCMC.}
 
+\item{checks}{Functions to perform posterior predictive checks with}
+
 \item{...}{Additional arguments for \link[rjags2]{jags.model}}
 }
 \value{
-
+JAGS model object
 }
 \description{
-Define JAGS model
+Define JAGS model for a Linear Regression
+}
+\examples{
+# coming soon
 }

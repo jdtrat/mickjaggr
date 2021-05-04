@@ -23,6 +23,10 @@ model {
     for (i in 1:num_obs) {
     # take inner product of predictors and coefficients
     response[i] ~ dnorm(inprod(predictors[i,], beta[]), tau)
+    {{{response_new}}}
     }
+
+
+    {{{pp_checks}}}
 
 }

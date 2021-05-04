@@ -2,29 +2,53 @@
 #'
 #' @param jags_data The output of \code{\link{jags_data_prep}}
 #' @param num_chains How many chains for the MCMC.
+#' @param checks Functions to perform posterior predictive checks with
 #' @param ... Additional arguments for \link[rjags2]{jags.model}
 #'
 #' @return JAGS model object
 #' @export
 #'
 #' @examples
-jags_model_lm <- function(jags_data, num_chains, ...) {
+#' # coming soon
+jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
 
-  rjags::jags.model(file = system.file("reg-linear.txt", package = "mickjaggr"),
-                    data = jags_data,
-                    n.chains = num_chains,
-                    ...)
 
+  template <- readLines(system.file("reg-linear.txt", package = "mickjaggr"))
+
+  if (!is.null(checks)) {
+
+    internal_checks <- paste0("pp.", checks, " <- ", checks, "(response.new[])", collapse = " \n")
+
+    data <- list(response_new = "response.new[i] ~ dnorm(inprod(predictors[i,], beta[]), tau)",
+                 pp_checks = internal_checks)
+  } else if (is.null(checks)) {
+    data <- list(pp_checks = NULL)
+  }
+
+  # create temp file
+  tmpfile <- tempfile(fileext = ".txt")
+
+  # write file with pp_checks
+  writeLines(whisker::whisker.render(template, data), con = tmpfile)
+
+  model <- rjags::jags.model(file = tmpfile,
+                             data = jags_data,
+                             n.chains = num_chains,
+                             ...)
+
+  on.exit(unlink(tmpfile))
+
+  return(model)
 }
 
 #' Define JAGS model for a Poisson Regression
 #'
 #' @inheritParams jags_model_lm
-#' @param checks Functions to perform posterior predictive checks with
 #' @return JAGS model object
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_model_poisson <- function(jags_data, num_chains, checks = NULL, ...) {
 
   template <- readLines(system.file("reg-poisson.txt", package = "mickjaggr"))
@@ -64,10 +88,11 @@ jags_model_poisson <- function(jags_data, num_chains, checks = NULL, ...) {
 #' @param variable_names The variables to save from JAGS output.
 #' @param ... Additional arguments for \link[rjags2]{coda.samples}
 #'
-#' @return
+#' @return A JAGS model output of class "mcmc.list"
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_model_run <- function(.jags_model, num_iter, variable_names, checks = NULL, ...) {
 
   if (!is.null(checks)) {
