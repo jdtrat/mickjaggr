@@ -21,3 +21,6 @@ Returns a Bayesian P Value for each posterior predictive check.
 \description{
 Perform Posterior Predictive Checks
 }
+\examples{
+# coming soon
+}

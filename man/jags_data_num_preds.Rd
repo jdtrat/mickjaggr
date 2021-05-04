@@ -15,3 +15,6 @@ jags_data_num_preds(.pred_matrix)
 \description{
 Get numbers of predictors
 }
+\examples{
+# coming soon
+}

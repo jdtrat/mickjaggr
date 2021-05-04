@@ -17,3 +17,6 @@ A list to be passed into \code{jags.model}
 \description{
 Prep Matrices
 }
+\examples{
+# coming soon
+}

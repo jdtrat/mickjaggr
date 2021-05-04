@@ -21,3 +21,6 @@ JAGS model object
 \description{
 Define JAGS model for a Poisson Regression
 }
+\examples{
+# coming soon
+}

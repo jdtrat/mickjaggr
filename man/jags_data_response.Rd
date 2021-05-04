@@ -15,3 +15,6 @@ jags_data_response(.recipe)
 \description{
 Get the response vector
 }
+\examples{
+# coming soon
+}

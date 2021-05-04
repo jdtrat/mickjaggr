@@ -15,3 +15,6 @@ The number of observations
 \description{
 Get numbers of observations
 }
+\examples{
+# coming soon
+}

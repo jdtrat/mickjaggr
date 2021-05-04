@@ -16,8 +16,11 @@ jags_model_run(.jags_model, num_iter, variable_names, checks = NULL, ...)
 \item{...}{Additional arguments for \link[rjags2]{coda.samples}}
 }
 \value{
-
+A JAGS model output of class "mcmc.list"
 }
 \description{
 Run JAGS models
+}
+\examples{
+# coming soon
 }

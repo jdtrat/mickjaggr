@@ -15,3 +15,6 @@ jags_data_all(.recipe)
 \description{
 Pull the modeling data
 }
+\examples{
+# coming soon
+}

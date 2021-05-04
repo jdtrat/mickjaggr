@@ -31,6 +31,7 @@ jags_data_predictors <- function(.recipe) {
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_data_num_preds <- function(.pred_matrix) {
   ncol(.pred_matrix)
 }
@@ -44,6 +45,7 @@ jags_data_num_preds <- function(.pred_matrix) {
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_data_num_obs <- function(.recipe) {
   nrow(.recipe$template)
 }
@@ -57,6 +59,7 @@ jags_data_num_obs <- function(.recipe) {
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_data_all <- function(.recipe) {
   all_data <- .recipe$template
   return(all_data)
@@ -70,6 +73,7 @@ jags_data_all <- function(.recipe) {
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_data_response <- function(.recipe) {
 
   # get the column name for the outcome variable
@@ -89,6 +93,7 @@ jags_data_response <- function(.recipe) {
 #' @export
 #'
 #' @examples
+#' # coming soon
 jags_data_prep <- function(.recipe, family) {
 
   # Get the prepped data
