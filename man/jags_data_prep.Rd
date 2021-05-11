@@ -4,12 +4,14 @@
 \alias{jags_data_prep}
 \title{Prep Matrices}
 \usage{
-jags_data_prep(.recipe, family)
+jags_data_prep(.recipe, family, .new_data = NULL)
 }
 \arguments{
 \item{.recipe}{A recipe object}
 
 \item{family}{The type of model to perform (e.g. "lm").}
+
+\item{.new_data}{Optional test data to make predictions with}
 }
 \value{
 A list to be passed into \code{jags.model}

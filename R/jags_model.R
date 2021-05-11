@@ -12,7 +12,6 @@
 #' # coming soon
 jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
 
-
   template <- readLines(system.file("reg-linear.txt", package = "mickjaggr"))
 
   if (!is.null(checks)) {
@@ -23,6 +22,13 @@ jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
                  pp_checks = internal_checks)
   } else if (is.null(checks)) {
     data <- list(pp_checks = NULL)
+  }
+
+
+  if ("test_predictors" %in% names(jags_data)) {
+
+    data[["predict"]] <- "predictions ~ dnorm(inprod(test_predictors, beta[]), tau)"
+
   }
 
   # create temp file
@@ -97,6 +103,10 @@ jags_model_run <- function(.jags_model, num_iter, variable_names, checks = NULL,
 
   if (!is.null(checks)) {
     variable_names <- c(variable_names, paste0("pp.", checks))
+  }
+
+  if ("test_predictions" %in% names(.jags_model$data())) {
+    variable_names <- c(variable_names, "test_predictions")
   }
 
   rjags::coda.samples(model = .jags_model,

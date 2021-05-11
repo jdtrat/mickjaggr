@@ -88,13 +88,14 @@ jags_data_response <- function(.recipe) {
 #'
 #' @param .recipe A recipe object
 #' @param family The type of model to perform (e.g. "lm").
+#' @param .new_data Optional test data to make predictions with
 #'
 #' @return A list to be passed into `jags.model`
 #' @export
 #'
 #' @examples
 #' # coming soon
-jags_data_prep <- function(.recipe, family) {
+jags_data_prep <- function(.recipe, family, .new_data = NULL) {
 
   # Get the prepped data
   data <- jags_data_all(.recipe = .recipe)
@@ -114,6 +115,19 @@ jags_data_prep <- function(.recipe, family) {
                  "predictors" = predictors,
                  "num_preds" = num_preds,
                  "num_obs" = num_obs)
+
+  if (!is.null(new_data)) {
+    test_data <- recipes::bake(.recipe, new_data = .new_data)
+
+    test_predictors <- subset(test_data, select = !names(test_data) %in% outcome_var)
+    test_predictors <- transform(test_predictors, ones = 1)
+    test_predictors <- test_predictors[, c("ones", setdiff(names(test_predictors),
+                                                 "ones"))]
+    test_predictors <- as.matrix(test_predictors)
+
+    output[["test_predictors"]] <- test_predictors
+
+  }
 
   class(output) <- c(family, "list")
 
