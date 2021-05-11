@@ -116,7 +116,7 @@ jags_data_prep <- function(.recipe, family, .new_data = NULL) {
                  "num_preds" = num_preds,
                  "num_obs" = num_obs)
 
-  if (!is.null(new_data)) {
+  if (!is.null(.new_data)) {
     test_data <- recipes::bake(.recipe, new_data = .new_data)
 
     test_predictors <- subset(test_data, select = !names(test_data) %in% outcome_var)
