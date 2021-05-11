@@ -27,8 +27,14 @@ jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
 
   if ("test_predictors" %in% names(jags_data)) {
 
-    data[["predict"]] <- "predictions ~ dnorm(inprod(test_predictors, beta[]), tau)"
+    data[["predict"]] <-
+    "
+    for (t in 1:num_test_preds) {
+    predictions ~ dnorm(inprod(test_predictors, beta[]), tau)
+    }
+    "
 
+    jags_data[["num_test_preds"]] <- nrow(jags_data[["test_predictors"]])
   }
 
   # create temp file
