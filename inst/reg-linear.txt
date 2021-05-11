@@ -26,6 +26,7 @@ model {
     {{{response_new}}}
     }
 
+    {{{predict}}}
 
     {{{pp_checks}}}
 
