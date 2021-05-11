@@ -111,7 +111,7 @@ jags_model_run <- function(.jags_model, num_iter, variable_names, checks = NULL,
     variable_names <- c(variable_names, paste0("pp.", checks))
   }
 
-  if ("test_predictions" %in% names(.jags_model$data())) {
+  if ("test_predictors" %in% names(.jags_model$data())) {
     variable_names <- c(variable_names, "test_predictions")
   }
 
