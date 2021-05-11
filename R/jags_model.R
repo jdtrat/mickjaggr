@@ -112,7 +112,7 @@ jags_model_run <- function(.jags_model, num_iter, variable_names, checks = NULL,
   }
 
   if ("test_predictors" %in% names(.jags_model$data())) {
-    variable_names <- c(variable_names, "test_predictors")
+    variable_names <- c(variable_names, "predictions")
   }
 
   rjags::coda.samples(model = .jags_model,
