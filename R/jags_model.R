@@ -30,7 +30,7 @@ jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
     data[["predict"]] <-
     "
     for (t in 1:num_test_preds) {
-    predictions ~ dnorm(inprod(test_predictors, beta[]), tau)
+    predictions ~ dnorm(inprod(test_predictors[t,], beta[]), tau)
     }
     "
 
