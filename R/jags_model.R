@@ -30,7 +30,7 @@ jags_model_lm <- function(jags_data, num_chains, checks = NULL, ...) {
     data[["predict"]] <-
     "
     for (t in 1:num_test_preds) {
-    predictions ~ dnorm(inprod(test_predictors[t,], beta[]), tau)
+    predictions[t] ~ dnorm(inprod(test_predictors[t,], beta[]), tau)
     }
     "
 
@@ -112,7 +112,7 @@ jags_model_run <- function(.jags_model, num_iter, variable_names, checks = NULL,
   }
 
   if ("test_predictors" %in% names(.jags_model$data())) {
-    variable_names <- c(variable_names, "test_predictions")
+    variable_names <- c(variable_names, "test_predictors")
   }
 
   rjags::coda.samples(model = .jags_model,
